@@ -6,7 +6,7 @@
 
 앞으로 이 레거시 프로젝트에서부터 spring MVC 프로젝트로 변해갈것.
 
-### 1. **플젝 생성**
+## 1. **플젝 생성**
 
 ![/Untitled.png](images/Untitled.png)
 
@@ -14,10 +14,10 @@
 
 ![/Untitled%202.png](images/Untitled%202.png)
 
-### 2. maven repository 들어가서 java servlet 검색해서 소스 copy, pom.xml 에 paste.
+## 2. maven repository 들어가서 java servlet 검색해서 소스 copy, pom.xml 에 paste.
 
 ```java
-		<dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
@@ -44,11 +44,11 @@
 
 `test` : 소스 클래스패스에선 사용 못함. 오로지 테스트를 실행할때만 쓸 수 있음
 
-### 3. java 패키지 생성
+## 3. java 패키지 생성
 
 src.main 밑에 java 패키지 생성한 후 프로젝트 스트럭쳐 - modules - Sources 들어가서 java 패키지를 sources로 mark
 
-### 4. Java 파일 생성
+## 4. Java 파일 생성
 
 java 패키지 밑에 me.hwpark 패키지 생성 후 HelloServlet 클래스 생성
 
@@ -58,7 +58,7 @@ package me.hwpark;
 // import 생략...
 
 public class HelloServlet extends HttpServlet {
-		// ctrl + o 눌러 override
+    // ctrl + o 눌러 override
     @Override
     public void init() throws ServletException {
         System.out.println("init");
@@ -84,11 +84,11 @@ public class HelloServlet extends HttpServlet {
 }
 ```
 
-### 5. 서블릿 컨테이너에 배포
+## 5. 서블릿 컨테이너에 배포
 
 ![/Untitled%203.png](images/Untitled%203.png)
 
-서블릿 독자적으로 우리가 실행할 수 있는 방법은 없음. 
+우리가 독자적으로 서블릿을 실행할 수 있는 방법은 없음. 
 
 실행은 톰캣이 필요하고, 서블릿 컨테이너에 배포하는 식으로 해야함. 
 
@@ -98,7 +98,7 @@ public class HelloServlet extends HttpServlet {
 
 **톰캣 사용 방법**
 
-**윈도우**라면 톰캣 압축 풀기만 하면 끝.
+**윈도우** 라면 톰캣 압축 풀기만 하면 끝.
 
 **mac** 이라면 톰캣 압축푼 파일 bin안에 들어가서 쉘들에게 권한 주기. 그럼 sh파일 색이 다르게 나올것
 
@@ -107,23 +107,27 @@ chmod +x ./*.sh
 ```
 
 **[Server 탭]**
+
 이 어플리케이션을 실행할 수 있는 서버는 9.0.14 버전이고
 
 **[Deployed 탭]**
 
-- javaservletdemo:war exploded
+**javaservletdemo:war exploded**
+
 배포를 하는데 톰캣을 띄울때 자바서블릿데모란 애는 배포법이 2가지.
 1. war로 묶어서 배포하는 방법
 2. war를 압축을 풀어헤친 상태로 앱을 배포하는 방법도 있음. 지금은 후자(war exploded)
-- Application context: /javaservletdemo_war_exploded
+
+**Application context: /javaservletdemo_war_exploded**
+
 애플리케이션이 뜨는 위치 지정. /만 남기고 삭제.
 
-### 6. web.xml 내용 추가
+## 6. web.xml 내용 추가
 
 ```java
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-	<!-- 여기서부터 추가 -->
+  <!-- 여기서부터 추가 -->
   <servlet>
     <servlet-name>hello</servlet-name>
     <servlet-class>me.hwpark.HelloServlet</servlet-class>
@@ -136,9 +140,9 @@ chmod +x ./*.sh
 </web-app>
 ```
 
-### 6. 실행
+## 6. 실행
 
-**uri 들어가면?**
+**uri로 들어가면?**
 
 [http://localhost:8081/hello](http://localhost:8081/hello)
 콘솔에 init, doGet 출력.
