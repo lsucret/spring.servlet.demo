@@ -163,6 +163,10 @@ chmod +x ./*.sh
 
 (tomcat) destroy가 호출됨.
 
+---
+
+# 정리
+
 우리가 학습할 spring mvc는 httpServlet 기반으로 만들어졌다.
 
 - 어노테이션으로 어떻게 처리를 했을까.
