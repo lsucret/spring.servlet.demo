@@ -174,3 +174,46 @@ chmod +x ./*.sh
 - spring mvc도 서블릿이었고 그런데 왜web.xml에 등록하지 않아도 됐을까
 
 앞으로 이런 궁금증을 해결해 줄것
+
+
+---
+## servlet spec 번역 정리글
+
+([https://javaee.github.io/servlet-spec/downloads/servlet-3.1/Final/servlet-3_1-final.pdf](https://javaee.github.io/servlet-spec/downloads/servlet-3.1/Final/servlet-3_1-final.pdf))
+
+## 서블릿이란?
+
+- Java 기반 Web Component 이며 동적 컨텐츠를 생산
+- Platform independent한 Java Class
+- Container도 서블릿 기능을 제공하는 웹서버의 확장판이다. 그래서 서블릿 엔진이라고도 불린다.
+- Web Client와 Servlet Container로 구현된 요청/응답 패러다임으로 상호소통한다.
+
+**Communication Paradigm**  
+Request/Response Paradigm은 Communication Paradigm의 한 종류
+다른 패러다임은 dracle docs 참고바람
+([https://docs.oracle.com/cd/E13203_01/tuxedo/tux71/html/pgint3.htm](https://docs.oracle.com/cd/E13203_01/tuxedo/tux71/html/pgint3.htm))
+
+## 서블릿 컨테이너란?
+
+웹서버 or WAS의 일부분으로 요청과 응답 사이에서 MIME 기반의 요청을 복호화하고 MIME기반의 응답을 포맷하는 네트워크 서비스를 제공한다. 또한 서블릿을 담고있어 서블릿의 생애주기동안 관리한다.
+
+서블릿 컨테이너는 웹 서버에 의해 만들어지거나 애드온 컴포넌트로서 인스톨된다. Web-enabled 어플리케이션 서버들에서도 인스톨되거나 built될 수 있다.
+
+모든 서블릿 컨테이너는 리퀘스트, 리스폰스 를 위한 HTTP를 지원해야 한다. 그러나 추가적으로 HTTPS 또한 지원될 수도 있다. 컨테이너는 HTTP 명세에서 1.1, 1.1을 필수로 구현해야 한다. 컨테이너가 (RFC2616, HTTP/1.1)캐싱 메카니즘을 가지고 있어야 할 수도 있기 때문이다. 이 RFC2616은 클라이언트에서 서블릿으로 가기 전에 요청을 수정할 수도 있고, 서블릿에서 클라이언트로 전송되기 전에 보내는 응답이 수정될 수도 있고, 아예 요청에 대한 응답을 서블릿에 전송하지 않고도 RFC2616의 준수 하에 받을 수도 있기 때문이다.
+
+**MIME types (Multipurpose Internet Mail Extensions)**  
+전송된 문서의 다양성을 알려주기 위한 메커니즘. 브라우저가 리소스를 내려받았을 때 해야 할 기본 동작이 무엇인지를 결정하기 위해 사용함.
+type/subtype 형태의 구조로 구성된다.
+예시로는 application/json, text/plain, text/html 등이 있다.
+(https://developer.mozilla.org/ko/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
+
+## An Example
+
+다음이 전형적인 이벤트의 순서이다.
+
+1. 클라이언트가 Web server에 접근해서 HTTP 요청을 생성한다.
+2. 웹서버가 요청을 받고 서블릿 컨테이너로 핸들한다.
+서블릿 컨테이너는 특정 호스트 웹서버에서 동일한 프로세스를 실행할 수도, 다른 프로세스를 실행할 수도 있고, 또는 서로다른 호스트에서 서로 다른 프로세스를 실행할 수도 있다.
+3. 서블릿 컨테이너는 서블릿의 설정을 기반으로 '어떤 서블릿을 invoke'할지, 그리고 '그 서블릿에게 요청과 응답 객체와 함께 호출'할지를 결정한다.
+4. 서블릿은 요청 객체를 사용해 원격 user는 누군지, HTTP POST 파라미터는 무언지, 다른 연관 데이터는 뭐가 있는지를 알아낸다. 로직이나 프로그래밍이 어떻든간에 서블릿은 프로그램되어있다 클라이언트한테 보낼 데이터를 생성한다. 서블릿은 데이터를 응답 객체를 통해 데이터를 클라이언트에게 전송한다.
+5. 서블릿이 요청 프로세스를 종료했다면, 서블릿 컨테이너는 응답이 적절하게 flush 됐는지 확인하고 컨트롤을 호스트 웹 서버로 되돌려준다.
